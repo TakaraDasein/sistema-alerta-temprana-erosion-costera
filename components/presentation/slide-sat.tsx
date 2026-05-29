@@ -122,6 +122,14 @@ export function SlideSAT() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<HTMLDivElement>(null)
 
+  // Alternancia automática cada 3 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowLabels(prev => !prev)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (imageRef.current) {
@@ -188,6 +196,54 @@ export function SlideSAT() {
         </button>
       </motion.div>
 
+      {/* Partículas sutiles de fondo - delgadas y alargadas */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <motion.div
+            key={`particle-blue-${i}`}
+            className="absolute w-0.5 bg-gradient-to-b from-transparent via-[#2d8bb8]/20 to-transparent"
+            style={{
+              height: `${30 + Math.random() * 60}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 0.6, 0],
+              y: [0, -100, -200],
+              x: [0, (Math.random() - 0.5) * 40],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: "linear",
+            }}
+          />
+        ))}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <motion.div
+            key={`particle-gold-${i}`}
+            className="absolute w-0.5 bg-gradient-to-b from-transparent via-[#c9a86c]/15 to-transparent"
+            style={{
+              height: `${40 + Math.random() * 80}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 0.5, 0],
+              y: [0, 150, 300],
+              x: [0, (Math.random() - 0.5) * 50],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+              ease: "linear",
+            }}
+          />
+        ))}
+      </div>
+
       {/* Imagen central con transición entre SVGs */}
       <motion.div
         ref={imageRef}
@@ -229,8 +285,8 @@ export function SlideSAT() {
                 }}
               >
                 <Image
-                  src="/sat/Pitch slide.svg"
-                  alt="Pitch Slide Central"
+                  src="/sat/hardware-etiqutas.svg"
+                  alt="SAT Con Etiquetas Hardware"
                   fill
                   className="object-contain opacity-90"
                   priority

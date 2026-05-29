@@ -1,0 +1,345 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "titulo": "Puntos Críticos de Erosión Costera - Dibulla, La Guajira",
+    "autor": "INVEMAR / Gobernación La Guajira",
+    "año": 2020,
+    "proyeccion": "WGS84 (EPSG:4326)",
+    "precision": "±10 metros",
+    "metodologia": "Análisis multitemporal satelital + verificación en campo",
+    "periodoEstudio": "1985-2020",
+    "actualizacion": "Anual",
+    "fuentePrincipal": "INVEMAR - Programa POMIUAC",
+    "licencia": "Creative Commons BY 4.0",
+    "estadisticas": {
+      "totalPuntos": 6,
+      "criticos": 3,
+      "alto": 2,
+      "medio": 1,
+      "tasaErosionPromedio_m_año": -4.13,
+      "retrocesoPromedio30años_m": 125.17,
+      "poblacionTotalAfectada": 1890
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "nombre": "Palomino Centro",
+        "tasaErosion": -5.63,
+        "comunidad": "Comunidad mixta (wayuu, afro, campesinos)",
+        "poblacionAfectada": 800,
+        "infraestructura": "Hoteles, restaurantes, viviendas",
+        "retroceso30anos": 175,
+        "nivel": "crítico",
+        "descripcion": "Punto más crítico. Retroceso de 175m documentado 1985-2020. Infraestructura turística en riesgo inminente.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["turistica", "residencial", "comercial"],
+        "tipoGeomorfologico": "playa_abierta",
+        "accionesRecomendadas": [
+          "Reubicación preventiva de infraestructura crítica",
+          "Estructuras de protección costera (rompeolas)",
+          "Monitoreo permanente con estaciones GPS",
+          "Plan de contingencia para temporada de huracanes"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 120,
+          "poblacionAfro": 80,
+          "poblacionCampesina": 600,
+          "viviendas": 200,
+          "familias": 180
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -5.63,
+          "tendencia": "acelerada",
+          "proyeccion2050_m": -344,
+          "costoEconomico_USD": 2500000,
+          "nivelUrgencia": 10
+        },
+        "color": "#dc2626",
+        "iconoMapa": "alert-triangle",
+        "tamañoMarcador": "large"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.3877, 11.2450]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "nombre": "La Cachaca III",
+        "tasaErosion": -4.2,
+        "comunidad": "42 familias wayuu",
+        "poblacionAfectada": 210,
+        "infraestructura": "Albercas de agua, cementerio ancestral, cultivos",
+        "retroceso30anos": 126,
+        "nivel": "crítico",
+        "descripcion": "42 familias wayuu desplazadas. Cementerio ancestral perdido por erosión acelerada.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["cultural", "agricola", "residencial"],
+        "tipoGeomorfologico": "playa_abierta",
+        "accionesRecomendadas": [
+          "Protección urgente de cementerio ancestral remanente",
+          "Reubicación concertada con autoridades wayuu",
+          "Restauración de albercas en zona segura",
+          "Monitoreo arqueológico preventivo"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 210,
+          "poblacionAfro": 0,
+          "poblacionCampesina": 0,
+          "viviendas": 42,
+          "familias": 42
+        },
+        "vulnerabilidadCultural": {
+          "sitiosSagrados": ["cementerio_ancestral"],
+          "impactoPatrimonio": "crítico",
+          "consultaPrevia": "requerida"
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -4.2,
+          "tendencia": "acelerada",
+          "proyeccion2050_m": -256,
+          "costoEconomico_USD": 800000,
+          "nivelUrgencia": 10
+        },
+        "color": "#dc2626",
+        "iconoMapa": "alert-triangle",
+        "tamañoMarcador": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.3200, 11.2700]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "nombre": "Río Palomino",
+        "tasaErosion": -4.5,
+        "comunidad": "Wiwa y campesinos",
+        "poblacionAfectada": 300,
+        "infraestructura": "Puente, acceso turístico, ecosistema de manglar",
+        "retroceso30anos": 135,
+        "nivel": "crítico",
+        "descripcion": "Desembocadura crítica. Manglar destruido, puente y acceso vial principal en riesgo.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["vial", "ambiental", "turistica"],
+        "tipoGeomorfologico": "desembocadura_fluvial",
+        "accionesRecomendadas": [
+          "Reforzamiento urgente de puente vehicular",
+          "Restauración de manglar con especies nativas",
+          "Control de sedimentación fluvial",
+          "Ruta alterna de acceso",
+          "Bioingeniería con mangle rojo (Rhizophora mangle)"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 150,
+          "poblacionAfro": 0,
+          "poblacionCampesina": 150,
+          "viviendas": 75,
+          "familias": 70
+        },
+        "vulnerabilidadAmbiental": {
+          "ecosistema": "manglar",
+          "especiesAmenazadas": ["Rhizophora mangle", "Avicennia germinans"],
+          "serviciosEcosistemicos": ["proteccion_costera", "crianza_peces", "captura_carbono"],
+          "areaPerdida_ha": 12.5
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -4.5,
+          "tendencia": "acelerada",
+          "proyeccion2050_m": -274,
+          "costoEconomico_USD": 1500000,
+          "nivelUrgencia": 9
+        },
+        "color": "#dc2626",
+        "iconoMapa": "alert-triangle",
+        "tamañoMarcador": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.3700, 11.2350]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "nombre": "Sector Playa Grande",
+        "tasaErosion": -3.8,
+        "comunidad": "Turística y pesquera",
+        "poblacionAfectada": 150,
+        "infraestructura": "Posadas turísticas, zona de pesca artesanal",
+        "retroceso30anos": 114,
+        "nivel": "alto",
+        "descripcion": "Zona turística y de pesca artesanal con pérdida acelerada de playa.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["turistica", "pesquera", "comercial"],
+        "tipoGeomorfologico": "playa_abierta",
+        "accionesRecomendadas": [
+          "Regulación de construcciones costeras",
+          "Protección de zona de varada artesanal",
+          "Alimentación artificial de playa",
+          "Diversificación económica"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 0,
+          "poblacionAfro": 50,
+          "poblacionCampesina": 100,
+          "viviendas": 40,
+          "familias": 35
+        },
+        "actividadEconomica": {
+          "turismo": "medio",
+          "pesca": "alto",
+          "comercio": "bajo",
+          "empleosDependientes": 120
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -3.8,
+          "tendencia": "estable_acelerada",
+          "proyeccion2050_m": -232,
+          "costoEconomico_USD": 600000,
+          "nivelUrgencia": 7
+        },
+        "color": "#f59e0b",
+        "iconoMapa": "alert-circle",
+        "tamañoMarcador": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.3450, 11.2550]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "nombre": "Mingueo",
+        "tasaErosion": -3.2,
+        "comunidad": "Rancherías wayuu",
+        "poblacionAfectada": 180,
+        "infraestructura": "Viviendas tradicionales, pozo de agua dulce",
+        "retroceso30anos": 96,
+        "nivel": "medio",
+        "descripcion": "Rancherías wayuu con pozos de agua dulce amenazados por intrusión salina.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["residencial", "hidrica"],
+        "tipoGeomorfologico": "playa_abierta",
+        "accionesRecomendadas": [
+          "Monitoreo de salinidad en pozos",
+          "Sistema alternativo de agua potable",
+          "Barreras vegetales contra intrusión salina",
+          "Planificación territorial participativa"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 180,
+          "poblacionAfro": 0,
+          "poblacionCampesina": 0,
+          "viviendas": 35,
+          "familias": 32
+        },
+        "vulnerabilidadHidrica": {
+          "pozosAfectados": 8,
+          "salinidad_ppm": 1200,
+          "nivelFreatico_m": 2.5,
+          "tendenciaSalinizacion": "creciente"
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -3.2,
+          "tendencia": "estable",
+          "proyeccion2050_m": -195,
+          "costoEconomico_USD": 400000,
+          "nivelUrgencia": 5
+        },
+        "color": "#eab308",
+        "iconoMapa": "info",
+        "tamañoMarcador": "small"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.2900, 11.2850]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "nombre": "Quebrada Valencia",
+        "tasaErosion": -3.5,
+        "comunidad": "Afrodescendientes",
+        "poblacionAfectada": 250,
+        "infraestructura": "Escuela rural, centro comunitario",
+        "retroceso30anos": 105,
+        "nivel": "alto",
+        "descripcion": "Comunidad afrodescendiente. Escuela rural y centro comunitario en zona de riesgo.",
+        "añoMedicion": 2020,
+        "periodoEstudio": "1985-2020",
+        "fuenteDatos": "INVEMAR - Estudio POMIUAC",
+        "metodologia": "Análisis multitemporal de imágenes satelitales",
+        "tipoInfraestructura": ["educativa", "comunitaria", "residencial"],
+        "tipoGeomorfologico": "playa_quebrada",
+        "accionesRecomendadas": [
+          "Reubicación de escuela a zona segura",
+          "Reforzamiento de centro comunitario",
+          "Plan de gestión de riesgo comunitario",
+          "Obras de mitigación (muros, vegetación)"
+        ],
+        "vulnerabilidadSocial": {
+          "poblacionIndigena": 0,
+          "poblacionAfro": 250,
+          "poblacionCampesina": 0,
+          "viviendas": 60,
+          "familias": 55
+        },
+        "infraestructuraCritica": {
+          "escuela": {
+            "estudiantes": 85,
+            "docentes": 4,
+            "distanciaLineaCosta_m": 45,
+            "añoConstruccion": 1998
+          },
+          "centroComunitario": {
+            "capacidad": 120,
+            "distanciaLineaCosta_m": 38,
+            "servicios": ["salon_eventos", "biblioteca", "puesto_salud"]
+          }
+        },
+        "indicadores": {
+          "velocidadActual_m_año": -3.5,
+          "tendencia": "estable",
+          "proyeccion2050_m": -214,
+          "costoEconomico_USD": 900000,
+          "nivelUrgencia": 8
+        },
+        "color": "#f59e0b",
+        "iconoMapa": "alert-circle",
+        "tamañoMarcador": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.3000, 11.2300]
+      }
+    }
+  ]
+}

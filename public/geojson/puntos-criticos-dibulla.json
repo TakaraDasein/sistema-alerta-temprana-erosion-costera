@@ -1,0 +1,77 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "nombre": "Palomino Centro",
+        "tasaErosion": -5.63,
+        "comunidad": "Comunidad mixta (wayuu, afro, campesinos)",
+        "poblacionAfectada": 800,
+        "infraestructura": "Hoteles, restaurantes, viviendas",
+        "retroceso30anos": 175,
+        "nivel": "crítico",
+        "descripcion": "Punto más crítico. Retroceso de 175m documentado 1985-2020. Infraestructura turística en riesgo inminente."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.55448964554145, 11.255051804003307]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "nombre": "Playa Mingueo",
+        "tasaErosion": -3.2,
+        "comunidad": "Rancherías wayuu",
+        "poblacionAfectada": 180,
+        "infraestructura": "Viviendas tradicionales, pozo de agua dulce",
+        "retroceso30anos": 96,
+        "nivel": "medio",
+        "descripcion": "Rancherías wayuu con pozos de agua dulce amenazados por intrusión salina."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.40283032720751, 11.26181286107297]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "nombre": "Playa Dibulla",
+        "tasaErosion": -4.2,
+        "comunidad": "42 familias wayuu",
+        "poblacionAfectada": 210,
+        "infraestructura": "Albercas de agua, cementerio ancestral, cultivos",
+        "retroceso30anos": 126,
+        "nivel": "crítico",
+        "descripcion": "42 familias wayuu desplazadas. Cementerio ancestral perdido por erosión acelerada."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.31493915869322, 11.274312075721184]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "nombre": "La Punta de los Remedios",
+        "tasaErosion": -3.8,
+        "comunidad": "Turística y pesquera",
+        "poblacionAfectada": 150,
+        "infraestructura": "Posadas turísticas, zona de pesca artesanal",
+        "retroceso30anos": 114,
+        "nivel": "alto",
+        "descripcion": "Zona turística y de pesca artesanal con pérdida acelerada de playa."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.26441039645496, 11.294978805148068]
+      }
+    }
+  ]
+}

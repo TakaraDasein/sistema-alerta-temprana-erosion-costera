@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "titulo": "Límites Municipales - Dibulla, La Guajira",
+    "fuente": "Simplificación para visualización",
+    "nota": "Para producción, usar geometría oficial de IGAC/DANE",
+    "proyeccion": "WGS84 (EPSG:4326)",
+    "actualizacion": "2026-05-27"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "Dibulla",
+        "departamento": "La Guajira",
+        "codigoDane": "44090",
+        "codigoDivipola": "44090",
+        "poblacion": 47487,
+        "area_km2": 1888,
+        "lineaCosteraKm": 32,
+        "puntosErosionCritica": 6,
+        "poblacionCostera": 1890,
+        "añoCreacion": 1994,
+        "clima": "Cálido semiárido",
+        "temperatura_promedio_C": 28,
+        "precipitacion_anual_mm": 770,
+        "descripcion": "Municipio costero de La Guajira con 6 puntos críticos de erosión",
+        "ecosistemas": ["manglar", "bosque_seco_tropical", "playas", "arrecifes_coralinos"]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-73.4500, 11.3300],
+          [-73.3200, 11.3300],
+          [-73.3200, 11.2200],
+          [-73.4500, 11.2200],
+          [-73.4500, 11.3300]
+        ]]
+      }
+    }
+  ]
+}

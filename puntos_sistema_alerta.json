@@ -1,0 +1,68 @@
+{
+  "puntos_costeros_sistema_alerta": [
+    {
+      "id": 1,
+      "nombre": "Playa Palomino Centro",
+      "lat": 11.2557,
+      "lon": -73.5563,
+      "verificado": true,
+      "prioridad": "alta",
+      "descripcion": "Zona turística de Playa Palomino, punto crítico de erosión"
+    },
+    {
+      "id": 2,
+      "nombre": "Desembocadura Río Palomino",
+      "lat": 11.2502,
+      "lon": -73.5672,
+      "verificado": true,
+      "prioridad": "crítica",
+      "descripcion": "Punto de mayor vulnerabilidad, desembocadura del río con procesos erosivos activos"
+    },
+    {
+      "id": 3,
+      "nombre": "La Cachaca III (Costa)",
+      "lat": 11.2380,
+      "lon": -73.5450,
+      "verificado": false,
+      "prioridad": "alta",
+      "descripcion": "Comunidad wayuu (42 familias), requiere verificación de coordenadas exactas"
+    },
+    {
+      "id": 4,
+      "nombre": "Playa Grande Norte",
+      "lat": 11.2620,
+      "lon": -73.5520,
+      "verificado": false,
+      "prioridad": "media",
+      "descripcion": "Sector norte de Palomino, requiere verificación"
+    },
+    {
+      "id": 5,
+      "nombre": "Costa Mingueo",
+      "lat": 11.2750,
+      "lon": -73.3050,
+      "verificado": false,
+      "prioridad": "media",
+      "descripcion": "Punto costero cercano a rancherías wayuu de Mingueo (15km tierra adentro)"
+    },
+    {
+      "id": 6,
+      "nombre": "Quebrada Valencia (Costa)",
+      "lat": 11.2200,
+      "lon": -73.5100,
+      "verificado": false,
+      "prioridad": "alta",
+      "descripcion": "Comunidad afrodescendiente, requiere verificación de coordenadas exactas"
+    }
+  ],
+  "configuracion_sistema": {
+    "centro_mapa": {
+      "lat": 11.2450,
+      "lon": -73.5200
+    },
+    "zoom_inicial": 12,
+    "radio_alerta_metros": 500,
+    "actualizacion_datos": "tiempo_real"
+  },
+  "siguiente_paso": "VALIDAR coordenadas de puntos no verificados usando Google Earth Pro o imágenes satelitales Sentinel/Landsat"
+}

@@ -10,12 +10,13 @@ import {
   Home,
   Maximize2,
   Minimize2,
-  AlertTriangle
+  AlertTriangle,
+  Map
 } from "lucide-react"
 import { SlideTitle } from "./slide-title"
 import { SlideSAT } from "./slide-sat"
 import { SlidePolicrisis } from "./slide-policrisis"
-import { SlideDibulla } from "./slide-dibulla"
+import { SlideDibulla } from "./slide-dibulla-ux-improved"
 import { SlideArchitecture } from "./slide-architecture"
 import { SlideLoRaNetwork } from "./slide-lora-network"
 import { SlideCostComparison } from "./slide-cost-comparison"
@@ -26,8 +27,8 @@ import { ParticleBackground } from "./particle-background"
 const slides = [
   { id: 0, component: SlideTitle, title: "Portada" },
   { id: 1, component: SlideSAT, title: "Sistema de Alerta Temprana" },
-  { id: 2, component: SlidePolicrisis, title: "Policrisis Planetaria" },
-  { id: 3, component: SlideDibulla, title: "Dibulla, La Guajira" },
+  { id: 2, component: SlideDibulla, title: "Dibulla - Mapa de Puntos Críticos" },
+  { id: 3, component: SlidePolicrisis, title: "Policrisis Planetaria" },
   { id: 4, component: SlideArchitecture, title: "Arquitectura" },
   { id: 5, component: SlideLoRaNetwork, title: "Red LoRa" },
   { id: 6, component: SlideCostComparison, title: "Comparativa de Costos" },
@@ -108,22 +109,33 @@ export function PresentationViewer() {
 
   const CurrentSlideComponent = slides[currentSlide].component
 
+  // El mapa de Dibulla necesita persistir sin desmontarse (ahora es slide 2)
+  const shouldPreserveComponent = currentSlide === 2
+  
   return (
     <div className="relative h-screen w-full bg-[#0d0a08] overflow-hidden">
       {/* Main slide area */}
       <div className="relative h-full w-full z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
-            <CurrentSlideComponent />
-          </motion.div>
-        </AnimatePresence>
+        {shouldPreserveComponent ? (
+          // Renderizado directo sin AnimatePresence para preservar el estado del mapa
+          <div className="absolute inset-0 z-20">
+            <CurrentSlideComponent key={`slide-${currentSlide}`} />
+          </div>
+        ) : (
+          // AnimatePresence normal para otros slides  
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 z-20"
+            >
+              <CurrentSlideComponent />
+            </motion.div>
+          </AnimatePresence>
+        )}
       </div>
 
       {/* Partículas — encima de los slides, debajo de controles */}
@@ -135,22 +147,61 @@ export function PresentationViewer() {
       <div className="absolute bottom-4 right-4 z-50">
         <div className="flex items-center gap-2 bg-[#1a1510]/90 backdrop-blur-sm border border-[#c9a86c]/30 rounded-full px-4 py-2">
           {/* Home button */}
-          <button
+          <motion.button
             onClick={() => goToSlide(0)}
-            className="p-2 rounded-full hover:bg-[#c9a86c]/20 transition-colors text-[#c9a86c]"
+            className="p-2 rounded-full hover:bg-[#c9a86c]/20 transition-colors text-[#c9a86c] relative"
             aria-label="Ir al inicio"
+            animate={{
+              scale: currentSlide === 0 ? [1, 1.3, 1] : 1,
+              boxShadow: currentSlide === 0 
+                ? ["0 0 0 0 rgba(201, 168, 108, 0)", "0 0 0 8px rgba(201, 168, 108, 0.3)", "0 0 0 0 rgba(201, 168, 108, 0)"]
+                : "0 0 0 0 rgba(201, 168, 108, 0)"
+            }}
+            transition={{
+              scale: { duration: 0.6, repeat: currentSlide === 0 ? Infinity : 0, repeatDelay: 2 },
+              boxShadow: { duration: 0.6, repeat: currentSlide === 0 ? Infinity : 0, repeatDelay: 2 }
+            }}
           >
             <Home size={18} />
-          </button>
+          </motion.button>
 
           {/* SAT button */}
-          <button
+          <motion.button
             onClick={() => goToSlide(1)}
-            className="p-2 rounded-full hover:bg-[#2d8bb8]/20 transition-colors text-[#2d8bb8]"
+            className="p-2 rounded-full hover:bg-[#2d8bb8]/20 transition-colors text-[#2d8bb8] relative"
             aria-label="Sistema de Alerta Temprana"
+            animate={{
+              scale: currentSlide === 1 ? [1, 1.3, 1] : 1,
+              boxShadow: currentSlide === 1 
+                ? ["0 0 0 0 rgba(45, 139, 184, 0)", "0 0 0 8px rgba(45, 139, 184, 0.3)", "0 0 0 0 rgba(45, 139, 184, 0)"]
+                : "0 0 0 0 rgba(45, 139, 184, 0)"
+            }}
+            transition={{
+              scale: { duration: 0.6, repeat: currentSlide === 1 ? Infinity : 0, repeatDelay: 2 },
+              boxShadow: { duration: 0.6, repeat: currentSlide === 1 ? Infinity : 0, repeatDelay: 2 }
+            }}
           >
             <AlertTriangle size={18} />
-          </button>
+          </motion.button>
+
+          {/* Map button - Dibulla */}
+          <motion.button
+            onClick={() => goToSlide(2)}
+            className="p-2 rounded-full hover:bg-red-500/20 transition-colors text-red-500 relative"
+            aria-label="Mapa de Dibulla"
+            animate={{
+              scale: currentSlide === 2 ? [1, 1.3, 1] : 1,
+              boxShadow: currentSlide === 2 
+                ? ["0 0 0 0 rgba(239, 68, 68, 0)", "0 0 0 8px rgba(239, 68, 68, 0.3)", "0 0 0 0 rgba(239, 68, 68, 0)"]
+                : "0 0 0 0 rgba(239, 68, 68, 0)"
+            }}
+            transition={{
+              scale: { duration: 0.6, repeat: currentSlide === 2 ? Infinity : 0, repeatDelay: 2 },
+              boxShadow: { duration: 0.6, repeat: currentSlide === 2 ? Infinity : 0, repeatDelay: 2 }
+            }}
+          >
+            <Map size={18} />
+          </motion.button>
 
           {/* Previous */}
           <button
@@ -219,15 +270,15 @@ export function PresentationViewer() {
         </div>
       </div>
 
-      {/* Current slide title */}
-      <div className="absolute top-4 left-4 z-50">
+      {/* Current slide title - Movido a la derecha debajo del contador */}
+      <div className="absolute top-16 right-4 z-50">
         <motion.div
           key={currentSlide}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1"
         >
-          <span className="text-[#c9a86c]/80 text-xs">
+          <span className="text-[#c9a86c] text-xs">
             {slides[currentSlide].title}
           </span>
         </motion.div>

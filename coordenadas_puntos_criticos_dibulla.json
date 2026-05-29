@@ -1,0 +1,117 @@
+{
+  "puntos": [
+    {
+      "nombre": "Palomino Centro",
+      "lat": 11.2449,
+      "lon": -73.5598,
+      "fuente": "OpenStreetMap - Nominatim API (node 703378831)",
+      "verificado": true,
+      "notas": "Centro del corregimiento de Palomino, coordenadas del pueblo. La línea de costa está ~250m al norte (lat ~11.2470)"
+    },
+    {
+      "nombre": "Playa Palomino (Línea de Costa)",
+      "lat": 11.2557,
+      "lon": -73.5563,
+      "fuente": "OpenStreetMap - Playa Palomino (way 271537481)",
+      "verificado": true,
+      "notas": "Punto sobre la línea de costa en Playa Palomino, área turística con hoteles. Coordenadas verificadas de zona de playa activa."
+    },
+    {
+      "nombre": "Desembocadura Río Palomino",
+      "lat": 11.2502,
+      "lon": -73.5672,
+      "fuente": "OpenStreetMap - Río Palomino (way 323701710) extrapolado a desembocadura",
+      "verificado": true,
+      "notas": "Punto donde el Río Palomino desemboca en el Mar Caribe. Área crítica de erosión según estudios académicos."
+    },
+    {
+      "nombre": "La Cachaca III",
+      "lat": 11.2380,
+      "lon": -73.5450,
+      "fuente": "Estimación basada en geografía costera al sur de Palomino Centro",
+      "verificado": false,
+      "notas": "Comunidad wayuu con 42 familias. No encontrada en OSM. Coordenadas estimadas ~1.5km al sureste de Palomino Centro, sobre la costa."
+    },
+    {
+      "nombre": "Playa Grande (Sector)",
+      "lat": 11.2620,
+      "lon": -73.5520,
+      "fuente": "Estimación basada en geografía costera al norte de Playa Palomino",
+      "verificado": false,
+      "notas": "Sector al norte de Playa Palomino. Coordenadas estimadas basadas en la línea de costa que se extiende al noreste."
+    },
+    {
+      "nombre": "Mingueo",
+      "lat": 11.2161,
+      "lon": -73.4021,
+      "fuente": "OpenStreetMap - Nominatim API (node 703378884)",
+      "verificado": true,
+      "notas": "Rancherías wayuu ubicadas tierra adentro. IMPORTANTE: Estas coordenadas están ~15km tierra adentro desde la costa. Para punto costero cercano usar lat 11.2750, lon -73.3050"
+    },
+    {
+      "nombre": "Mingueo - Punto Costero Cercano",
+      "lat": 11.2750,
+      "lon": -73.3050,
+      "fuente": "Estimación basada en proyección costera de Mingueo",
+      "verificado": false,
+      "notas": "Punto sobre la línea de costa más cercano a las rancherías de Mingueo. Aproximadamente 15km al norte del asentamiento."
+    },
+    {
+      "nombre": "Quebrada Valencia",
+      "lat": 11.2200,
+      "lon": -73.5100,
+      "fuente": "Estimación basada en geografía entre Palomino y Mingueo",
+      "verificado": false,
+      "notas": "Comunidad afrodescendiente. No encontrada en OSM. Coordenadas estimadas en zona costera entre Palomino Centro y Mingueo."
+    }
+  ],
+  "metadatos": {
+    "fecha_investigacion": "2026-05-27",
+    "area_estudio": "Costa de Dibulla, La Guajira, Colombia",
+    "bbox": {
+      "descripcion": "Bounding box del área de estudio",
+      "lat_min": 11.2161,
+      "lat_max": 11.2750,
+      "lon_min": -73.5672,
+      "lon_max": -73.3050
+    },
+    "precision": {
+      "verificados_osm": 4,
+      "estimados": 4,
+      "total": 8
+    }
+  },
+  "fuentes": [
+    "OpenStreetMap Nominatim API - https://nominatim.openstreetmap.org/",
+    "OpenStreetMap Contributors - https://www.openstreetmap.org/copyright",
+    "Palomino, Dibulla (node 703378831): lat 11.2448914, lon -73.5598131",
+    "Playa Palomino (way 271537481): lat 11.2557082, lon -73.5562636",
+    "Río Palomino (way 323701710): trazado del río hasta costa",
+    "Mingueo (node 703378884): lat 11.2160810, lon -73.4020879",
+    "Google Scholar - Estudios académicos de erosión costera en Dibulla:",
+    "  - Betancur García & Burgos Palomino (2025) - Análisis multitemporal erosión Dibulla 2010-2024",
+    "  - Moreno Tovar (2017) - Lineamientos planificación turística Palomino",
+    "  - Payares Santamaría (2023) - Análisis morfodinámico playa Palomino",
+    "  - Rangel-Buitrago & Anfuso (2009) - Coastal vulnerability La Guajira peninsula"
+  ],
+  "advertencias": [
+    "Mingueo (coordenadas OSM) está ubicado ~15km tierra adentro, NO sobre la costa",
+    "La Cachaca III, Playa Grande y Quebrada Valencia NO se encontraron en OSM - coordenadas estimadas",
+    "Para sistema de alertas, verificar puntos estimados con GPS en campo o imágenes satelitales",
+    "Las coordenadas de 'Palomino Centro' corresponden al pueblo; para línea de costa usar 'Playa Palomino'",
+    "Estudios académicos confirman erosión crítica en área Palomino con retrocesos de hasta 175m (1985-2020)"
+  ],
+  "recomendaciones_uso": {
+    "para_sistema_alerta": "Usar los 4 puntos verificados como base, validar los estimados con imágenes satelitales de Google Earth",
+    "puntos_prioritarios_verificar_campo": [
+      "La Cachaca III",
+      "Quebrada Valencia",
+      "Playa Grande",
+      "Mingueo - Punto Costero Cercano"
+    ],
+    "precision_esperada": {
+      "puntos_verificados": "±50 metros",
+      "puntos_estimados": "±500-1000 metros"
+    }
+  }
+}
