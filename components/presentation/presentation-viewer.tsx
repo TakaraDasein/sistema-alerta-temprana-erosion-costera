@@ -376,20 +376,6 @@ export function PresentationViewer() {
           </span>
         </div>
       </div>
-
-      {/* Current slide title - Movido a la derecha debajo del contador */}
-      <div className="absolute top-16 right-4 z-50">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1"
-        >
-          <span className="text-[#c9a86c] text-xs">
-            {slides[currentSlide].title}
-          </span>
-        </motion.div>
-      </div>
     </div>
   )
 }
