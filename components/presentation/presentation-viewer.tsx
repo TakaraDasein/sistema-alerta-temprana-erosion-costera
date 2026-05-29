@@ -7,11 +7,8 @@ import {
   ChevronRight, 
   Play, 
   Pause, 
-  Home,
   Maximize2,
   Minimize2,
-  AlertTriangle,
-  Map,
   Tag,
   Tags
 } from "lucide-react"
@@ -188,85 +185,6 @@ export function PresentationViewer() {
       {/* Navigation controls */}
       <div className="absolute bottom-4 right-4 z-50">
         <div className="flex items-center gap-2 bg-[#1a1510]/90 backdrop-blur-sm border border-[#c9a86c]/30 rounded-full px-4 py-2">
-          {/* Home button */}
-          <button
-            onClick={() => goToSlide(0)}
-            className={`p-2 rounded-full transition-all duration-200 ${
-              currentSlide === 0 
-                ? "bg-[#c9a86c]/20 text-[#c9a86c]" 
-                : "text-[#c9a86c]/40 hover:text-[#c9a86c]/70 hover:bg-[#c9a86c]/5"
-            }`}
-            aria-label="Ir al inicio"
-          >
-            <Home size={16} strokeWidth={currentSlide === 0 ? 2.5 : 2} />
-          </button>
-
-          {/* SAT button */}
-          <button
-            onClick={() => goToSlide(1)}
-            className={`p-2 rounded-full transition-all duration-200 ${
-              currentSlide === 1 
-                ? "bg-[#2d8bb8]/20 text-[#2d8bb8]" 
-                : "text-[#2d8bb8]/40 hover:text-[#2d8bb8]/70 hover:bg-[#2d8bb8]/5"
-            }`}
-            aria-label="Sistema de Alerta Temprana"
-          >
-            <AlertTriangle size={16} strokeWidth={currentSlide === 1 ? 2.5 : 2} />
-          </button>
-
-          {/* Map button - Dibulla */}
-          <button
-            onClick={() => goToSlide(2)}
-            className={`p-2 rounded-full transition-all duration-200 ${
-              currentSlide === 2 
-                ? "bg-red-500/20 text-red-500" 
-                : "text-red-500/40 hover:text-red-500/70 hover:bg-red-500/5"
-            }`}
-            aria-label="Mapa de Dibulla"
-          >
-            <Map size={16} strokeWidth={currentSlide === 2 ? 2.5 : 2} />
-          </button>
-
-          {/* SAT button - vertical rectangle */}
-          <button
-            onClick={() => goToSlide(1)}
-            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
-              currentSlide === 1 
-                ? "bg-[#2d8bb8]/20 border-2 border-[#2d8bb8]" 
-                : "border-2 border-[#2d8bb8]/20 hover:border-[#2d8bb8]/40 hover:bg-[#2d8bb8]/10"
-            }`}
-            style={currentSlide === 1 ? {
-              boxShadow: "0 0 12px rgba(45, 139, 184, 0.5), inset 0 0 8px rgba(45, 139, 184, 0.2)"
-            } : {}}
-            aria-label="Sistema de Alerta Temprana"
-          >
-            <AlertTriangle 
-              size={18} 
-              strokeWidth={currentSlide === 1 ? 2.5 : 2}
-              className={currentSlide === 1 ? "text-[#2d8bb8]" : "text-[#2d8bb8]/50"}
-            />
-          </button>
-
-          {/* Map button - Dibulla - vertical rectangle */}
-          <button
-            onClick={() => goToSlide(2)}
-            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
-              currentSlide === 2 
-                ? "bg-red-500/20 border-2 border-red-500" 
-                : "border-2 border-red-500/20 hover:border-red-500/40 hover:bg-red-500/10"
-            }`}
-            style={currentSlide === 2 ? {
-              boxShadow: "0 0 12px rgba(239, 68, 68, 0.5), inset 0 0 8px rgba(239, 68, 68, 0.2)"
-            } : {}}
-            aria-label="Mapa de Dibulla"
-          >
-            <Map 
-              size={18} 
-              strokeWidth={currentSlide === 2 ? 2.5 : 2}
-              className={currentSlide === 2 ? "text-red-500" : "text-red-500/50"}
-            />
-          </button>
-
           {/* Previous */}
           <button
             onClick={prevSlide}
@@ -291,6 +209,39 @@ export function PresentationViewer() {
               />
             ))}
           </div>
+
+          {/* Next */}
+          <button
+            onClick={nextSlide}
+            className="p-2 rounded-full hover:bg-[#c9a86c]/20 transition-colors text-[#c9a86c]"
+            aria-label="Siguiente diapositiva"
+          >
+            <ChevronRight size={20} />
+          </button>
+
+          {/* Play/Pause */}
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className={`p-2 rounded-full transition-colors ${
+              isPlaying 
+                ? "bg-[#22c55e]/20 text-[#22c55e]" 
+                : "hover:bg-[#c9a86c]/20 text-[#c9a86c]"
+            }`}
+            aria-label={isPlaying ? "Pausar" : "Reproducir"}
+          >
+            {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+          </button>
+
+          {/* Fullscreen */}
+          <button
+            onClick={toggleFullscreen}
+            className="p-2 rounded-full hover:bg-[#c9a86c]/20 transition-colors text-[#c9a86c]"
+            aria-label={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
+          >
+            {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+          </button>
+        </div>
+      </div>
 
           {/* Next */}
           <button
