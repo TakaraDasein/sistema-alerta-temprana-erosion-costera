@@ -327,62 +327,46 @@ export function PresentationViewer() {
 
       {/* Slide counter + SAT Labels Toggle */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
-        {/* SAT Title + Labels Toggle - Solo visible en slide SAT */}
+        {/* SAT Labels Toggle - Solo visible en slide SAT */}
         {currentSlide === 1 && (
-          <div className="flex items-center gap-2">
-            {/* Título SAT */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-              className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1.5"
-            >
-              <span className="text-xs text-[#c9a86c]/80 tracking-wide">
-                Sistema de Alerta Temprana
-              </span>
-            </motion.div>
-
-            {/* Toggle Button */}
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              onClick={handleSATLabelToggle}
-              className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg
-                       backdrop-blur-md border transition-all duration-200 ${
-                         showSATLabels 
-                           ? 'bg-[#2d8bb8]/15 border-[#2d8bb8]/60' 
-                           : 'bg-[#1a1510]/90 border-[#2d8bb8]/30 hover:border-[#2d8bb8]/50'
-                       }`}
-              aria-label="Toggle SAT labels"
-            >
-              {/* Contenido */}
-              <div className="relative flex items-center gap-2">
-                {showSATLabels ? (
-                  <Tags size={14} className="text-[#2d8bb8]" strokeWidth={2.5} />
-                ) : (
-                  <Tag size={14} className="text-[#c9a86c]/60" strokeWidth={2} />
-                )}
-                
-                <span className={`text-xs font-medium tracking-wide transition-colors ${
-                  showSATLabels 
-                    ? 'text-[#c9a86c]' 
-                    : 'text-[#c9a86c]/50'
-                }`}>
-                  {showSATLabels ? 'Etiquetas' : 'Hardware'}
-                </span>
-              </div>
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            onClick={handleSATLabelToggle}
+            className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg
+                     backdrop-blur-md border transition-all duration-200 ${
+                       showSATLabels 
+                         ? 'bg-[#2d8bb8]/15 border-[#2d8bb8]/60' 
+                         : 'bg-[#1a1510]/90 border-[#2d8bb8]/30 hover:border-[#2d8bb8]/50'
+                     }`}
+            aria-label="Toggle SAT labels"
+          >
+            {/* Contenido */}
+            <div className="relative flex items-center gap-2">
+              {showSATLabels ? (
+                <Tags size={14} className="text-[#2d8bb8]" strokeWidth={2.5} />
+              ) : (
+                <Tag size={14} className="text-[#c9a86c]/60" strokeWidth={2} />
+              )}
               
-              {/* Indicador de estado sutil */}
-              <div className={`w-1 h-1 rounded-full transition-all duration-200 ${
+              <span className={`text-xs font-medium tracking-wide transition-colors ${
                 showSATLabels 
-                  ? 'bg-[#2d8bb8] opacity-100' 
-                  : 'bg-[#c9a86c]/20 opacity-60'
-              }`} />
-            </motion.button>
-          </div>
+                  ? 'text-[#c9a86c]' 
+                  : 'text-[#c9a86c]/50'
+              }`}>
+                {showSATLabels ? 'Etiquetas' : 'Hardware'}
+              </span>
+            </div>
+            
+            {/* Indicador de estado sutil */}
+            <div className={`w-1 h-1 rounded-full transition-all duration-200 ${
+              showSATLabels 
+                ? 'bg-[#2d8bb8] opacity-100' 
+                : 'bg-[#c9a86c]/20 opacity-60'
+            }`} />
+          </motion.button>
         )}
         
         {/* Counter */}
