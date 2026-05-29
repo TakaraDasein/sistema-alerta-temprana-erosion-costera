@@ -118,26 +118,45 @@ const getPanelPosition = (edge: EdgePosition) => {
 
 type SlideSATProps = {
   showLabels?: boolean
+  onLabelChange?: (value: boolean) => void
 }
 
-export function SlideSAT({ showLabels: externalShowLabels }: SlideSATProps = {}) {
+export function SlideSAT({ showLabels: externalShowLabels, onLabelChange }: SlideSATProps = {}) {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
   const [internalShowLabels, setInternalShowLabels] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [userInteracted, setUserInteracted] = useState(false)
+  const [lastInteractionTime, setLastInteractionTime] = useState(0)
   const imageRef = useRef<HTMLDivElement>(null)
 
   // Usar prop externa si existe, sino usar estado interno
   const showLabels = externalShowLabels !== undefined ? externalShowLabels : internalShowLabels
 
-  // Alternancia automática cada 3 segundos - solo si no hay control externo
+  // Alternancia automática cada 3 segundos - pausar 10s después de interacción manual
   useEffect(() => {
-    if (externalShowLabels !== undefined) return // No auto-toggle si hay control externo
+    const now = Date.now()
+    const timeSinceInteraction = now - lastInteractionTime
     
+    // Si el usuario interactuó hace menos de 10 segundos, no hacer auto-toggle
+    if (userInteracted && timeSinceInteraction < 10000) {
+      const remainingTime = 10000 - timeSinceInteraction
+      const timeout = setTimeout(() => {
+        setUserInteracted(false)
+      }, remainingTime)
+      return () => clearTimeout(timeout)
+    }
+    
+    // Auto-toggle cada 3 segundos
     const interval = setInterval(() => {
-      setInternalShowLabels(prev => !prev)
+      if (externalShowLabels !== undefined && onLabelChange) {
+        onLabelChange(!externalShowLabels)
+      } else {
+        setInternalShowLabels(prev => !prev)
+      }
     }, 3000)
+    
     return () => clearInterval(interval)
-  }, [externalShowLabels])
+  }, [externalShowLabels, onLabelChange, userInteracted, lastInteractionTime])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -158,20 +177,7 @@ export function SlideSAT({ showLabels: externalShowLabels }: SlideSATProps = {})
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      {/* Título principal */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="absolute top-4 left-0 right-0 text-center z-30"
-      >
-        <h1 className="text-3xl md:text-4xl font-bold text-[#c9a86c] mb-1">
-          Sistema de Alerta Temprana
-        </h1>
-        <p className="text-sm text-[#c9a86c]/70">
-          O'u Pale Mma - Infraestructura Comunitaria Abierta
-        </p>
-      </motion.div>
+      {/* Título principal - REMOVIDO, ahora está en presentation-viewer */}
 
       {/* Botón toggle movido - será reemplazado por control en presentation-viewer */}
 
@@ -229,7 +235,7 @@ export function SlideSAT({ showLabels: externalShowLabels }: SlideSATProps = {})
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="absolute inset-0 z-0 flex items-center justify-center pt-20 pb-0 px-20"
+        className="absolute inset-0 z-0 flex items-center justify-center py-8 px-20"
       >
         <div className="relative w-full h-full">
           <AnimatePresence mode="wait">

@@ -43,6 +43,14 @@ export function PresentationViewer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showSATLabels, setShowSATLabels] = useState(false)
+  const [satUserInteracted, setSatUserInteracted] = useState(false)
+  const [satLastInteraction, setSatLastInteraction] = useState(0)
+
+  const handleSATLabelToggle = () => {
+    setShowSATLabels(!showSATLabels)
+    setSatUserInteracted(true)
+    setSatLastInteraction(Date.now())
+  }
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
@@ -68,6 +76,32 @@ export function PresentationViewer() {
 
     return () => clearInterval(interval)
   }, [isPlaying, nextSlide])
+
+  // Auto-toggle SAT labels cada 3 segundos (pausar 10s después de interacción)
+  useEffect(() => {
+    if (currentSlide !== 1) return // Solo en slide SAT
+    
+    const now = Date.now()
+    const timeSinceInteraction = now - satLastInteraction
+    
+    // Si el usuario interactuó hace menos de 10 segundos, esperar
+    if (satUserInteracted && timeSinceInteraction < 10000) {
+      const remainingTime = 10000 - timeSinceInteraction
+      const timeout = setTimeout(() => {
+        setSatUserInteracted(false)
+      }, remainingTime)
+      return () => clearTimeout(timeout)
+    }
+    
+    // Auto-toggle cada 3 segundos
+    const interval = setInterval(() => {
+      if (!satUserInteracted) {
+        setShowSATLabels(prev => !prev)
+      }
+    }, 3000)
+    
+    return () => clearInterval(interval)
+  }, [currentSlide, satUserInteracted, satLastInteraction])
 
   // Keyboard navigation
   useEffect(() => {
@@ -293,64 +327,62 @@ export function PresentationViewer() {
 
       {/* Slide counter + SAT Labels Toggle */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
-        {/* SAT Labels Toggle - Solo visible en slide SAT */}
+        {/* SAT Title + Labels Toggle - Solo visible en slide SAT */}
         {currentSlide === 1 && (
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setShowSATLabels(!showSATLabels)}
-            className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg
-                     backdrop-blur-md border-2 transition-all duration-300 overflow-hidden ${
-                       showSATLabels 
-                         ? 'bg-[#2d8bb8]/25 border-[#2d8bb8] shadow-lg shadow-[#2d8bb8]/30' 
-                         : 'bg-[#1a1510]/90 border-[#2d8bb8]/40 hover:border-[#2d8bb8]/70 hover:bg-[#1a1510]'
-                     }`}
-            aria-label="Toggle SAT labels"
-          >
-            {/* Fondo animado */}
+          <div className="flex items-center gap-2">
+            {/* Título SAT */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-[#2d8bb8]/0 via-[#2d8bb8]/20 to-[#2d8bb8]/0"
-              animate={{
-                x: showSATLabels ? ['-100%', '100%'] : 0,
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: showSATLabels ? Infinity : 0,
-                ease: 'linear',
-              }}
-            />
-            
-            {/* Contenido */}
-            <div className="relative flex items-center gap-2">
-              <motion.div
-                animate={{ rotate: showSATLabels ? 0 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {showSATLabels ? (
-                  <Tags size={16} className="text-[#2d8bb8]" strokeWidth={2.5} />
-                ) : (
-                  <Tag size={16} className="text-[#c9a86c]/70" strokeWidth={2} />
-                )}
-              </motion.div>
-              
-              <span className={`text-xs font-medium tracking-wide transition-colors ${
-                showSATLabels 
-                  ? 'text-[#c9a86c]' 
-                  : 'text-[#c9a86c]/60'
-              }`}>
-                {showSATLabels ? 'Etiquetas' : 'Hardware'}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1.5"
+            >
+              <span className="text-xs text-[#c9a86c]/80 tracking-wide">
+                Sistema de Alerta Temprana
               </span>
-            </div>
-            
-            {/* Indicador de estado */}
-            <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              showSATLabels 
-                ? 'bg-[#2d8bb8] shadow-[0_0_8px_rgba(45,139,184,0.8)]' 
-                : 'bg-[#c9a86c]/30'
-            }`} />
-          </motion.button>
+            </motion.div>
+
+            {/* Toggle Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              onClick={handleSATLabelToggle}
+              className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg
+                       backdrop-blur-md border transition-all duration-200 ${
+                         showSATLabels 
+                           ? 'bg-[#2d8bb8]/15 border-[#2d8bb8]/60' 
+                           : 'bg-[#1a1510]/90 border-[#2d8bb8]/30 hover:border-[#2d8bb8]/50'
+                       }`}
+              aria-label="Toggle SAT labels"
+            >
+              {/* Contenido */}
+              <div className="relative flex items-center gap-2">
+                {showSATLabels ? (
+                  <Tags size={14} className="text-[#2d8bb8]" strokeWidth={2.5} />
+                ) : (
+                  <Tag size={14} className="text-[#c9a86c]/60" strokeWidth={2} />
+                )}
+                
+                <span className={`text-xs font-medium tracking-wide transition-colors ${
+                  showSATLabels 
+                    ? 'text-[#c9a86c]' 
+                    : 'text-[#c9a86c]/50'
+                }`}>
+                  {showSATLabels ? 'Etiquetas' : 'Hardware'}
+                </span>
+              </div>
+              
+              {/* Indicador de estado sutil */}
+              <div className={`w-1 h-1 rounded-full transition-all duration-200 ${
+                showSATLabels 
+                  ? 'bg-[#2d8bb8] opacity-100' 
+                  : 'bg-[#c9a86c]/20 opacity-60'
+              }`} />
+            </motion.button>
+          </div>
         )}
         
         {/* Counter */}
