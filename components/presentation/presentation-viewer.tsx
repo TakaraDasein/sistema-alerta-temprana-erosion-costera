@@ -11,7 +11,9 @@ import {
   Maximize2,
   Minimize2,
   AlertTriangle,
-  Map
+  Map,
+  Tag,
+  Tags
 } from "lucide-react"
 import { SlideTitle } from "./slide-title"
 import { SlideSAT } from "./slide-sat"
@@ -40,6 +42,7 @@ export function PresentationViewer() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [showSATLabels, setShowSATLabels] = useState(false)
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
@@ -119,7 +122,10 @@ export function PresentationViewer() {
         {shouldPreserveComponent ? (
           // Renderizado directo sin AnimatePresence para preservar el estado del mapa
           <div className="absolute inset-0 z-20">
-            <CurrentSlideComponent key={`slide-${currentSlide}`} />
+            <CurrentSlideComponent 
+              key={`slide-${currentSlide}`} 
+              {...(currentSlide === 1 ? { showLabels: showSATLabels } : {})}
+            />
           </div>
         ) : (
           // AnimatePresence normal para otros slides  
@@ -132,7 +138,9 @@ export function PresentationViewer() {
               transition={{ duration: 0.3 }}
               className="absolute inset-0 z-20"
             >
-              <CurrentSlideComponent />
+              <CurrentSlideComponent 
+                {...(currentSlide === 1 ? { showLabels: showSATLabels } : {})}
+              />
             </motion.div>
           </AnimatePresence>
         )}
@@ -147,61 +155,83 @@ export function PresentationViewer() {
       <div className="absolute bottom-4 right-4 z-50">
         <div className="flex items-center gap-2 bg-[#1a1510]/90 backdrop-blur-sm border border-[#c9a86c]/30 rounded-full px-4 py-2">
           {/* Home button */}
-          <motion.button
+          <button
             onClick={() => goToSlide(0)}
-            className="p-2 rounded-full hover:bg-[#c9a86c]/20 transition-colors text-[#c9a86c] relative"
+            className={`p-2 rounded-full transition-all duration-200 ${
+              currentSlide === 0 
+                ? "bg-[#c9a86c]/20 text-[#c9a86c]" 
+                : "text-[#c9a86c]/40 hover:text-[#c9a86c]/70 hover:bg-[#c9a86c]/5"
+            }`}
             aria-label="Ir al inicio"
-            animate={{
-              scale: currentSlide === 0 ? [1, 1.3, 1] : 1,
-              boxShadow: currentSlide === 0 
-                ? ["0 0 0 0 rgba(201, 168, 108, 0)", "0 0 0 8px rgba(201, 168, 108, 0.3)", "0 0 0 0 rgba(201, 168, 108, 0)"]
-                : "0 0 0 0 rgba(201, 168, 108, 0)"
-            }}
-            transition={{
-              scale: { duration: 0.6, repeat: currentSlide === 0 ? Infinity : 0, repeatDelay: 2 },
-              boxShadow: { duration: 0.6, repeat: currentSlide === 0 ? Infinity : 0, repeatDelay: 2 }
-            }}
           >
-            <Home size={18} />
-          </motion.button>
+            <Home size={16} strokeWidth={currentSlide === 0 ? 2.5 : 2} />
+          </button>
 
           {/* SAT button */}
-          <motion.button
+          <button
             onClick={() => goToSlide(1)}
-            className="p-2 rounded-full hover:bg-[#2d8bb8]/20 transition-colors text-[#2d8bb8] relative"
+            className={`p-2 rounded-full transition-all duration-200 ${
+              currentSlide === 1 
+                ? "bg-[#2d8bb8]/20 text-[#2d8bb8]" 
+                : "text-[#2d8bb8]/40 hover:text-[#2d8bb8]/70 hover:bg-[#2d8bb8]/5"
+            }`}
             aria-label="Sistema de Alerta Temprana"
-            animate={{
-              scale: currentSlide === 1 ? [1, 1.3, 1] : 1,
-              boxShadow: currentSlide === 1 
-                ? ["0 0 0 0 rgba(45, 139, 184, 0)", "0 0 0 8px rgba(45, 139, 184, 0.3)", "0 0 0 0 rgba(45, 139, 184, 0)"]
-                : "0 0 0 0 rgba(45, 139, 184, 0)"
-            }}
-            transition={{
-              scale: { duration: 0.6, repeat: currentSlide === 1 ? Infinity : 0, repeatDelay: 2 },
-              boxShadow: { duration: 0.6, repeat: currentSlide === 1 ? Infinity : 0, repeatDelay: 2 }
-            }}
           >
-            <AlertTriangle size={18} />
-          </motion.button>
+            <AlertTriangle size={16} strokeWidth={currentSlide === 1 ? 2.5 : 2} />
+          </button>
 
           {/* Map button - Dibulla */}
-          <motion.button
+          <button
             onClick={() => goToSlide(2)}
-            className="p-2 rounded-full hover:bg-red-500/20 transition-colors text-red-500 relative"
+            className={`p-2 rounded-full transition-all duration-200 ${
+              currentSlide === 2 
+                ? "bg-red-500/20 text-red-500" 
+                : "text-red-500/40 hover:text-red-500/70 hover:bg-red-500/5"
+            }`}
             aria-label="Mapa de Dibulla"
-            animate={{
-              scale: currentSlide === 2 ? [1, 1.3, 1] : 1,
-              boxShadow: currentSlide === 2 
-                ? ["0 0 0 0 rgba(239, 68, 68, 0)", "0 0 0 8px rgba(239, 68, 68, 0.3)", "0 0 0 0 rgba(239, 68, 68, 0)"]
-                : "0 0 0 0 rgba(239, 68, 68, 0)"
-            }}
-            transition={{
-              scale: { duration: 0.6, repeat: currentSlide === 2 ? Infinity : 0, repeatDelay: 2 },
-              boxShadow: { duration: 0.6, repeat: currentSlide === 2 ? Infinity : 0, repeatDelay: 2 }
-            }}
           >
-            <Map size={18} />
-          </motion.button>
+            <Map size={16} strokeWidth={currentSlide === 2 ? 2.5 : 2} />
+          </button>
+
+          {/* SAT button - vertical rectangle */}
+          <button
+            onClick={() => goToSlide(1)}
+            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
+              currentSlide === 1 
+                ? "bg-[#2d8bb8]/20 border-2 border-[#2d8bb8]" 
+                : "border-2 border-[#2d8bb8]/20 hover:border-[#2d8bb8]/40 hover:bg-[#2d8bb8]/10"
+            }`}
+            style={currentSlide === 1 ? {
+              boxShadow: "0 0 12px rgba(45, 139, 184, 0.5), inset 0 0 8px rgba(45, 139, 184, 0.2)"
+            } : {}}
+            aria-label="Sistema de Alerta Temprana"
+          >
+            <AlertTriangle 
+              size={18} 
+              strokeWidth={currentSlide === 1 ? 2.5 : 2}
+              className={currentSlide === 1 ? "text-[#2d8bb8]" : "text-[#2d8bb8]/50"}
+            />
+          </button>
+
+          {/* Map button - Dibulla - vertical rectangle */}
+          <button
+            onClick={() => goToSlide(2)}
+            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
+              currentSlide === 2 
+                ? "bg-red-500/20 border-2 border-red-500" 
+                : "border-2 border-red-500/20 hover:border-red-500/40 hover:bg-red-500/10"
+            }`}
+            style={currentSlide === 2 ? {
+              boxShadow: "0 0 12px rgba(239, 68, 68, 0.5), inset 0 0 8px rgba(239, 68, 68, 0.2)"
+            } : {}}
+            aria-label="Mapa de Dibulla"
+          >
+            <Map 
+              size={18} 
+              strokeWidth={currentSlide === 2 ? 2.5 : 2}
+              className={currentSlide === 2 ? "text-red-500" : "text-red-500/50"}
+            />
+          </button>
 
           {/* Previous */}
           <button
@@ -261,8 +291,33 @@ export function PresentationViewer() {
         </div>
       </div>
 
-      {/* Slide counter */}
-      <div className="absolute top-4 right-4 z-50">
+      {/* Slide counter + SAT Labels Toggle */}
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+        {/* SAT Labels Toggle - Solo visible en slide SAT */}
+        {currentSlide === 1 && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            onClick={() => setShowSATLabels(!showSATLabels)}
+            className="group flex items-center gap-1.5 px-2.5 py-1 rounded-md
+                     bg-[#1a1510]/80 backdrop-blur-sm border border-[#2d8bb8]/30
+                     hover:border-[#2d8bb8]/60 hover:bg-[#1a1510]/90
+                     transition-all duration-200"
+            aria-label="Toggle SAT labels"
+          >
+            {showSATLabels ? (
+              <Tags size={14} className="text-[#2d8bb8]" />
+            ) : (
+              <Tag size={14} className="text-[#2d8bb8]/60" />
+            )}
+            <span className="text-[10px] text-[#c9a86c]/70 group-hover:text-[#c9a86c] transition-colors">
+              {showSATLabels ? 'Etiquetas' : 'Hardware'}
+            </span>
+          </motion.button>
+        )}
+        
+        {/* Counter */}
         <div className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1">
           <span className="text-[#c9a86c] text-sm font-mono">
             {currentSlide + 1} / {slides.length}

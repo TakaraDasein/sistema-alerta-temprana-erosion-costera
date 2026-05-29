@@ -116,19 +116,28 @@ const getPanelPosition = (edge: EdgePosition) => {
   }
 }
 
-export function SlideSAT() {
+type SlideSATProps = {
+  showLabels?: boolean
+}
+
+export function SlideSAT({ showLabels: externalShowLabels }: SlideSATProps = {}) {
   const [hoveredSection, setHoveredSection] = useState<string | null>(null)
-  const [showLabels, setShowLabels] = useState(false)
+  const [internalShowLabels, setInternalShowLabels] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<HTMLDivElement>(null)
 
-  // Alternancia automática cada 3 segundos
+  // Usar prop externa si existe, sino usar estado interno
+  const showLabels = externalShowLabels !== undefined ? externalShowLabels : internalShowLabels
+
+  // Alternancia automática cada 3 segundos - solo si no hay control externo
   useEffect(() => {
+    if (externalShowLabels !== undefined) return // No auto-toggle si hay control externo
+    
     const interval = setInterval(() => {
-      setShowLabels(prev => !prev)
+      setInternalShowLabels(prev => !prev)
     }, 3000)
     return () => clearInterval(interval)
-  }, [])
+  }, [externalShowLabels])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -164,37 +173,7 @@ export function SlideSAT() {
         </p>
       </motion.div>
 
-      {/* Botón toggle para cambiar entre SVGs */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="absolute top-20 right-8 z-30"
-      >
-        <button
-          onClick={() => setShowLabels(!showLabels)}
-          className="group flex items-center gap-2 px-3 py-1.5 rounded-full
-                   bg-[#1a1510]/60 backdrop-blur-sm border border-[#2d8bb8]/30
-                   hover:border-[#2d8bb8]/60 hover:bg-[#1a1510]/80
-                   transition-all duration-300"
-        >
-          {showLabels ? (
-            <>
-              <Tags size={16} className="text-[#2d8bb8]" />
-              <span className="text-xs text-[#c9a86c]/70 group-hover:text-[#c9a86c]">
-                Con etiquetas
-              </span>
-            </>
-          ) : (
-            <>
-              <Tag size={16} className="text-[#2d8bb8]/60" />
-              <span className="text-xs text-[#c9a86c]/70 group-hover:text-[#c9a86c]">
-                Sin etiquetas
-              </span>
-            </>
-          )}
-        </button>
-      </motion.div>
+      {/* Botón toggle movido - será reemplazado por control en presentation-viewer */}
 
       {/* Partículas sutiles de fondo - delgadas y alargadas */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -297,7 +276,7 @@ export function SlideSAT() {
         </div>
       </motion.div>
 
-      {/* Botones en los bordes */}
+      {/* Labels minimalistas y compactos en los bordes */}
       {sections.map((section, index) => {
         const Icon = section.icon
         const isHovered = hoveredSection === section.id
@@ -305,45 +284,61 @@ export function SlideSAT() {
         return (
           <motion.div
             key={section.id}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+            initial={{ opacity: 0, x: section.edge === 'left' ? -30 : section.edge === 'right' ? 30 : 0 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 + index * 0.08 }}
             className="absolute z-40"
             style={getButtonPosition(section.edge, section.position)}
             onMouseEnter={() => setHoveredSection(section.id)}
             onMouseLeave={() => setHoveredSection(null)}
           >
-            <div className="group relative">
-              {/* Área de detección invisible más grande */}
-              <div className="absolute -inset-4" />
-              
-              {/* Botón principal - SIEMPRE VISIBLE */}
+            <div className="group relative cursor-pointer">
+              {/* Label minimalista compacto */}
               <motion.div 
                 animate={{ 
-                  scale: isHovered ? 1.15 : 1
+                  scale: isHovered ? 1.02 : 1,
+                  x: isHovered ? (section.edge === 'left' ? 4 : section.edge === 'right' ? -4 : 0) : 0
                 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                className="relative w-14 h-14 rounded-full transition-all duration-300
-                          flex items-center justify-center
-                          bg-[#1a1510]/90 border-2 border-[#2d8bb8]/60 hover:border-[#2d8bb8] 
-                          hover:bg-[#1a1510] shadow-lg shadow-[#2d8bb8]/30"
+                className={`relative px-3 py-1.5 rounded-md transition-all duration-200 flex items-center gap-2 ${
+                  isHovered 
+                    ? 'bg-[#2d8bb8]/15 border border-[#2d8bb8]/60' 
+                    : 'bg-[#1a1510]/70 border border-[#2d8bb8]/25'
+                }`}
+                style={{
+                  backdropFilter: 'blur(8px)',
+                  boxShadow: isHovered 
+                    ? '0 2px 12px rgba(45, 139, 184, 0.25)'
+                    : '0 1px 4px rgba(0, 0, 0, 0.2)',
+                }}
               >
                 <Icon 
-                  size={22} 
-                  className="transition-colors text-[#2d8bb8] group-hover:text-[#c9a86c]"
+                  size={14} 
+                  className="transition-colors flex-shrink-0"
+                  style={{ color: isHovered ? '#2d8bb8' : 'rgba(45, 139, 184, 0.6)' }}
+                  strokeWidth={2}
                 />
+                <span 
+                  className="text-[10px] font-medium tracking-wide uppercase transition-colors whitespace-nowrap"
+                  style={{ 
+                    color: isHovered ? '#c9a86c' : 'rgba(255, 255, 255, 0.7)',
+                  }}
+                >
+                  {section.title}
+                </span>
               </motion.div>
 
               {/* Línea de conexión al panel */}
               {isHovered && (
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className={`absolute bg-gradient-to-r from-[#2d8bb8] to-transparent
-                            ${section.edge === 'left' ? 'left-full h-0.5 w-8' : ''}
-                            ${section.edge === 'right' ? 'right-full h-0.5 w-8' : ''}
-                            ${section.edge === 'top' ? 'top-full w-0.5 h-8 left-1/2 -translate-x-1/2' : ''}
-                            ${section.edge === 'bottom' ? 'bottom-full w-0.5 h-8 left-1/2 -translate-x-1/2' : ''}
+                  initial={{ scaleX: 0, scaleY: 0 }}
+                  animate={{ scaleX: 1, scaleY: 1 }}
+                  transition={{ duration: 0.15 }}
+                  className={`absolute bg-[#2d8bb8]/60
+                            ${section.edge === 'left' ? 'left-full h-[1px] w-6 top-1/2 -translate-y-1/2' : ''}
+                            ${section.edge === 'right' ? 'right-full h-[1px] w-6 top-1/2 -translate-y-1/2' : ''}
+                            ${section.edge === 'top' ? 'top-full w-[1px] h-6 left-1/2 -translate-x-1/2' : ''}
+                            ${section.edge === 'bottom' ? 'bottom-full w-[1px] h-6 left-1/2 -translate-x-1/2' : ''}
                   `}
                 />
               )}
