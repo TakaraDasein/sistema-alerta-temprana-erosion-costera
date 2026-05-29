@@ -227,46 +227,6 @@ export function PresentationViewer() {
             <Map size={16} strokeWidth={currentSlide === 2 ? 2.5 : 2} />
           </button>
 
-          {/* SAT button - vertical rectangle */}
-          <button
-            onClick={() => goToSlide(1)}
-            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
-              currentSlide === 1 
-                ? "bg-[#2d8bb8]/20 border-2 border-[#2d8bb8]" 
-                : "border-2 border-[#2d8bb8]/20 hover:border-[#2d8bb8]/40 hover:bg-[#2d8bb8]/10"
-            }`}
-            style={currentSlide === 1 ? {
-              boxShadow: "0 0 12px rgba(45, 139, 184, 0.5), inset 0 0 8px rgba(45, 139, 184, 0.2)"
-            } : {}}
-            aria-label="Sistema de Alerta Temprana"
-          >
-            <AlertTriangle 
-              size={18} 
-              strokeWidth={currentSlide === 1 ? 2.5 : 2}
-              className={currentSlide === 1 ? "text-[#2d8bb8]" : "text-[#2d8bb8]/50"}
-            />
-          </button>
-
-          {/* Map button - Dibulla - vertical rectangle */}
-          <button
-            onClick={() => goToSlide(2)}
-            className={`relative w-10 h-12 rounded-lg transition-all duration-300 flex items-center justify-center ${
-              currentSlide === 2 
-                ? "bg-red-500/20 border-2 border-red-500" 
-                : "border-2 border-red-500/20 hover:border-red-500/40 hover:bg-red-500/10"
-            }`}
-            style={currentSlide === 2 ? {
-              boxShadow: "0 0 12px rgba(239, 68, 68, 0.5), inset 0 0 8px rgba(239, 68, 68, 0.2)"
-            } : {}}
-            aria-label="Mapa de Dibulla"
-          >
-            <Map 
-              size={18} 
-              strokeWidth={currentSlide === 2 ? 2.5 : 2}
-              className={currentSlide === 2 ? "text-red-500" : "text-red-500/50"}
-            />
-          </button>
-
           {/* Previous */}
           <button
             onClick={prevSlide}
