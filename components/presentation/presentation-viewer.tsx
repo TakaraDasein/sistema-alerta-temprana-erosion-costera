@@ -292,33 +292,69 @@ export function PresentationViewer() {
       </div>
 
       {/* Slide counter + SAT Labels Toggle */}
-      <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         {/* SAT Labels Toggle - Solo visible en slide SAT */}
         {currentSlide === 1 && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
             onClick={() => setShowSATLabels(!showSATLabels)}
-            className="group flex items-center gap-1.5 px-2.5 py-1 rounded-md
-                     bg-[#1a1510]/80 backdrop-blur-sm border border-[#2d8bb8]/30
-                     hover:border-[#2d8bb8]/60 hover:bg-[#1a1510]/90
-                     transition-all duration-200"
+            className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg
+                     backdrop-blur-md border-2 transition-all duration-300 overflow-hidden ${
+                       showSATLabels 
+                         ? 'bg-[#2d8bb8]/25 border-[#2d8bb8] shadow-lg shadow-[#2d8bb8]/30' 
+                         : 'bg-[#1a1510]/90 border-[#2d8bb8]/40 hover:border-[#2d8bb8]/70 hover:bg-[#1a1510]'
+                     }`}
             aria-label="Toggle SAT labels"
           >
-            {showSATLabels ? (
-              <Tags size={14} className="text-[#2d8bb8]" />
-            ) : (
-              <Tag size={14} className="text-[#2d8bb8]/60" />
-            )}
-            <span className="text-[10px] text-[#c9a86c]/70 group-hover:text-[#c9a86c] transition-colors">
-              {showSATLabels ? 'Etiquetas' : 'Hardware'}
-            </span>
+            {/* Fondo animado */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#2d8bb8]/0 via-[#2d8bb8]/20 to-[#2d8bb8]/0"
+              animate={{
+                x: showSATLabels ? ['-100%', '100%'] : 0,
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: showSATLabels ? Infinity : 0,
+                ease: 'linear',
+              }}
+            />
+            
+            {/* Contenido */}
+            <div className="relative flex items-center gap-2">
+              <motion.div
+                animate={{ rotate: showSATLabels ? 0 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {showSATLabels ? (
+                  <Tags size={16} className="text-[#2d8bb8]" strokeWidth={2.5} />
+                ) : (
+                  <Tag size={16} className="text-[#c9a86c]/70" strokeWidth={2} />
+                )}
+              </motion.div>
+              
+              <span className={`text-xs font-medium tracking-wide transition-colors ${
+                showSATLabels 
+                  ? 'text-[#c9a86c]' 
+                  : 'text-[#c9a86c]/60'
+              }`}>
+                {showSATLabels ? 'Etiquetas' : 'Hardware'}
+              </span>
+            </div>
+            
+            {/* Indicador de estado */}
+            <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              showSATLabels 
+                ? 'bg-[#2d8bb8] shadow-[0_0_8px_rgba(45,139,184,0.8)]' 
+                : 'bg-[#c9a86c]/30'
+            }`} />
           </motion.button>
         )}
         
         {/* Counter */}
-        <div className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1">
+        <div className="bg-[#1a1510]/80 backdrop-blur-sm border border-[#c9a86c]/30 rounded-lg px-3 py-1.5">
           <span className="text-[#c9a86c] text-sm font-mono">
             {currentSlide + 1} / {slides.length}
           </span>
