@@ -181,6 +181,23 @@ export function SlideSAT({ showLabels: externalShowLabels, onLabelChange }: Slid
 
       {/* Botón toggle movido - será reemplazado por control en presentation-viewer */}
 
+      {/* Máscaras de opacidad en bordes superior e inferior - 4 escalas graduales */}
+      {/* Máscara superior */}
+      <div 
+        className="absolute inset-x-0 top-0 h-32 z-30 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, #0d0a08 0%, rgba(13, 10, 8, 0.75) 25%, rgba(13, 10, 8, 0.5) 50%, rgba(13, 10, 8, 0.25) 75%, transparent 100%)'
+        }}
+      />
+      
+      {/* Máscara inferior */}
+      <div 
+        className="absolute inset-x-0 bottom-0 h-32 z-30 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to top, #0d0a08 0%, rgba(13, 10, 8, 0.75) 25%, rgba(13, 10, 8, 0.5) 50%, rgba(13, 10, 8, 0.25) 75%, transparent 100%)'
+        }}
+      />
+
       {/* Imagen central con transición entre SVGs */}
       <motion.div
         ref={imageRef}
