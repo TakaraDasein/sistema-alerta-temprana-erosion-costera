@@ -235,9 +235,9 @@ export function SlideSAT({ showLabels: externalShowLabels, onLabelChange }: Slid
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="absolute inset-0 z-0 flex items-center justify-center py-8 px-20"
+        className="absolute inset-0 z-0 flex items-center justify-center px-16"
       >
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full max-h-full">
           <AnimatePresence mode="wait">
             {!showLabels ? (
               <motion.div
@@ -246,15 +246,18 @@ export function SlideSAT({ showLabels: externalShowLabels, onLabelChange }: Slid
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4 }}
-                className="absolute inset-0"
+                className="absolute inset-0 flex items-center justify-center"
               >
-                <Image
-                  src="/sat/sat-sinfondo.svg"
-                  alt="SAT Sin Fondo"
-                  fill
-                  className="object-contain opacity-90"
-                  priority
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/sat/sat-sinfondo.svg"
+                    alt="SAT Sin Fondo"
+                    fill
+                    className="object-contain"
+                    priority
+                    style={{ maxHeight: '100%' }}
+                  />
+                </div>
               </motion.div>
             ) : (
               <motion.div
@@ -263,19 +266,22 @@ export function SlideSAT({ showLabels: externalShowLabels, onLabelChange }: Slid
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4 }}
-                className="absolute inset-0"
+                className="absolute inset-0 flex items-center justify-center"
                 style={{
                   filter: `drop-shadow(0 0 ${Math.max(10 - mousePosition.x / 50, 2)}px rgba(45, 139, 184, 0.5))
                            drop-shadow(0 0 ${Math.max(10 - mousePosition.y / 50, 2)}px rgba(201, 168, 108, 0.3))`
                 }}
               >
-                <Image
-                  src="/sat/hardware-etiqutas.svg"
-                  alt="SAT Con Etiquetas Hardware"
-                  fill
-                  className="object-contain opacity-90"
-                  priority
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/sat/hardware-etiqutas.svg"
+                    alt="SAT Con Etiquetas Hardware"
+                    fill
+                    className="object-contain"
+                    priority
+                    style={{ maxHeight: '100%' }}
+                  />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
